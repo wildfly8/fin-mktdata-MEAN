@@ -50,8 +50,10 @@ class MktWebsocketClient {
     subscribeMktdataFeed = data => {
         if('Finnhub' === data.vendor && this.socketFinnhub != null && this.socketFinnhubOpened) {
             data.symbols.forEach(s => this.socketFinnhub.send(JSON.stringify({'type':'subscribe', 'symbol': s})))
+            console.log('Finnhub websocket subscribed.')
           } else if('GDAX' === data.vendor && this.socketGdax != null && this.socketGdaxOpened) {
             this.socketGdax.send(JSON.stringify({'type':'subscribe', 'product_ids': data.symbols, "channels": ["ticker"]}))
+            console.log('GDAX websocket subscribed.')
           }
     };
     
@@ -60,11 +62,9 @@ class MktWebsocketClient {
             data.symbols.forEach(s => {
                 this.socketFinnhub.send(JSON.stringify({'type':'unsubscribe','symbol': s}))
             })
-            //this.socketFinnhub = null;
             console.log('Finnhub websocket unsubscribed.')
           } else if('GDAX' === data.vendor && this.socketGdax != null && this.socketGdaxOpened) {
             this.socketGdax.send(JSON.stringify({'type':'unsubscribe','product_ids': data.symbols, 'channels': ["ticker"]}))
-            //this.socketGdax = null;
             console.log('GDAX websocket unsubscribed.')
           }
     };
