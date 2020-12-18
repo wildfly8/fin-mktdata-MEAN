@@ -1,0 +1,71 @@
+<div id="controlPanel">
+    <div class="d-flex flex-row">
+        <div class="p-2">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="vendors">Vendor Sources:</label>
+                </div>
+                <select id="vendors" class="select-option" [(ngModel)]="selectedVendor">
+                    <option *ngFor="let vendor of vendorSources">{{vendor}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="p-2">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="orderStatusTypes">Trade Feed Type:</label>
+                </div>
+                <select id="orderStatusTypes" class="select-option" [(ngModel)]="selectedOrderStatusType">
+                    <option *ngFor="let orderStatusType of orderStatusTypes" [ngValue]="orderStatusType">{{orderStatusType}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row">
+        <Label><b>Override Values:</b></Label>
+    </div>
+    <div class="d-flex flex-wrap">
+        <div class="p-2">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="Tickers">Tickers</span>
+                </div>
+                <input type="text" [(ngModel)]="tickers" #newComment (blur)="submit(newComment.value)" class="form-control" size="15" aria-label="Tickers" aria-describedby="Tickers-field">
+            </div>
+        </div>      
+        <div class="p-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="TradeDate">TradeDate</span>
+                    </div>
+                    <input type="text"  [(ngModel)]="tradeDate" class="form-control" size="7" aria-label="TradeDate" aria-describedby="TradeDate-field">
+                </div>
+        </div>           
+    </div>
+
+    <div class="d-flex flex-row">
+        <div class="p-2">
+            <button type="button" class="btn btn-info" id="simulate-feed" (click)="simulateMktdataFeed()">Simulate Mktdata Feed</button>
+            &nbsp;
+            <button type="button" class="btn btn-warning" id="sub-feed" (click)="subscribeRealMktdataFeed()">Sub Real Mktdata Feed</button>
+            &nbsp;
+            <button type="button" class="btn btn-danger" id="unsub-feed" (click)="unsubscribeRealMktdataFeed()">Unsub Real Mktdata Feed</button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" id="send-to-atp" (click)="simulateTradeFeed()">Simulate Trade Feed</button>
+            &nbsp;
+            <button type="button" class="btn btn-secondary" id="clear" (click)="clearConsole()">Clear Console</button>	
+        </div>            
+    </div>
+    
+    <br/>			
+	<div id="console" style="min-height:50vh; max-height:50vh; overflow-y:scroll; color:green; background-color:black">
+        <b>Parsed FIX msg: {{labelVal}}</b>
+        <br/>
+        <div *ngFor="let consoleMessage of consoleMessages">
+            {{consoleMessage}}
+            <br>
+            <br>
+        </div>
+	</div>
+</div>

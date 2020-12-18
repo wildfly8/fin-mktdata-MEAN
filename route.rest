@@ -1,0 +1,32 @@
+GET http://localhost:4000/api/vendors
+
+###
+
+GET http://localhost:4000/api/itemsales
+Content-Type: application/json
+
+###
+
+GET http://localhost:4000/api/sales/5eaf41fa750e2c62237a2e18
+
+###
+
+POST http://localhost:4000/api/sales
+Content-Type: application/json
+
+[
+    {
+        "itemId": "10011", 
+        "itemName": "Nokia 8", 
+        "itemPrice": 388, 
+        "itemQty": 5, 
+        "totalPrice": "1940"
+    },
+    {
+        "itemId": "10012", 
+        "itemName": "Iphone 12", 
+        "itemPrice": 1700, 
+        "itemQty": 51, 
+        "totalPrice": "2000"
+    }
+]
