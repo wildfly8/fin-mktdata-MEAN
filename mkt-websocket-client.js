@@ -24,6 +24,7 @@ class MktWebsocketClient {
         })
         this.socketFinnhub.addEventListener('close', event => {
             console.log('Finnhub websocket closed.', event)
+            this.socketFinnhubOpened = false
         })
         this.socketGdax = new ReconnectingWebSocket('wss://ws-feed.pro.coinbase.com', [], {
             WebSocket: WS,
@@ -42,6 +43,7 @@ class MktWebsocketClient {
         })
         this.socketGdax.addEventListener('close', event => {
             console.log('GDAX websocket closed.' + this.socketGdax, event)
+            this.socketGdaxOpened = false
         })
     }
 
@@ -58,11 +60,11 @@ class MktWebsocketClient {
             data.symbols.forEach(s => {
                 this.socketFinnhub.send(JSON.stringify({'type':'unsubscribe','symbol': s}))
             })
-            this.socketFinnhub = null;
+            //this.socketFinnhub = null;
             console.log('Finnhub websocket unsubscribed.')
           } else if('GDAX' === data.vendor && this.socketGdax != null && this.socketGdaxOpened) {
             this.socketGdax.send(JSON.stringify({'type':'unsubscribe','product_ids': data.symbols, 'channels': ["ticker"]}))
-            this.socketGdax = null;
+            //this.socketGdax = null;
             console.log('GDAX websocket unsubscribed.')
           }
     };
