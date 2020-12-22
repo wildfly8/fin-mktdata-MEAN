@@ -17,7 +17,10 @@ class MktWebsocketClient {
             this.socketFinnhubOpened = true
         })
         this.socketFinnhub.addEventListener('message', event => {
-            this.io.emit('subscribe-MktdataFeed', JSON.parse(event.data))
+            if(event.data) {
+                console.log(`Finnhub data: ${event.data}`)
+                this.io.emit('subscribe-MktdataFeed', JSON.parse(event.data))
+            }
         })
         this.socketFinnhub.addEventListener('error', event => {
             console.log('Finnhub websocket error: ', event)
